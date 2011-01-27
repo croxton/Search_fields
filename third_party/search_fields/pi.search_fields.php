@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 $plugin_info = array(
   'pi_name' => 'Search Fields',
@@ -516,7 +516,7 @@ class Search_fields {
 			operator="OR" 
 			channel="my_channel" 
 			parse="inward"}
-			{exp:channel:entries entry_id="{search_results}" dynamic="off"}
+			{exp:channel:entries entry_id="{search_results}" disable="member_data|categories" dynamic="no" orderby="title" sort="asc" limit="10"}
 				<a href="{page_url}">{title}</a>
 			{/exp:channel:entries}
 		{/exp:search_fields}
