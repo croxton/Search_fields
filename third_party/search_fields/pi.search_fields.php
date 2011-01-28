@@ -2,7 +2,7 @@
 
 $plugin_info = array(
   'pi_name' => 'Search Fields',
-  'pi_version' =>'2.0.0',
+  'pi_version' =>'2.0.1',
   'pi_author' =>'Mark Croxton',
   'pi_author_url' => 'http://www.hallmark-design.co.uk/',
   'pi_description' => 'Search channel entry titles, custom fields, category names, category descriptions and category custom fields.',
@@ -79,12 +79,42 @@ class Search_fields {
 		if (! empty($this->EE->TMPL->search_fields))
 		{	
 			foreach ($this->EE->TMPL->search_fields as $field_name => $terms)
-			{	
-				
+			{
 				// search channel custom fields
 				if (isset($this->_custom_fields[$this->EE->config->item('site_id')][$field_name]))
 				{
 					$field_sql = 'wd.field_id_'.$this->_custom_fields[$this->EE->config->item('site_id')][$field_name];
+					
+					// Tagger module support
+					if (strncmp($terms, 'tagger=', 7) ==  0)
+					{
+						$tag = substr($terms, 7);
+						
+						// Grab all entries with this tag
+						// Note that it doesn't matter what the custom field containing the tags is called
+						// Tagger's data model permits only one tag field per entry
+						$this->EE->db->select('tl.item_id');
+						$this->EE->db->from('exp_tagger_links tl');
+						$this->EE->db->join('exp_tagger t', 't.tag_id = tl.tag_id', 'left');
+						$this->EE->db->join('exp_channel_titles ct', 'ct.entry_id = tl.item_id', 'left');
+						$this->EE->db->where('t.tag_name', $tag);
+					
+						// Fetch
+						$query = $this->EE->db->get();
+
+						if ($query->num_rows() > 0)
+						{
+							$matched_entry_sql = '';
+							foreach ($query->result() as $row)
+							{
+								$matched_entry_sql .= "'".$row->item_id."',";
+							}
+							$matched_entry_sql = rtrim($matched_entry_sql, ',');
+						
+							// now add to our master search query...
+							$sql_conditions = "AND wt.entry_id IN({$matched_entry_sql})";
+						}
+					}
 				} 
 				
 				// search channel titles

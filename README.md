@@ -2,13 +2,13 @@
 
 * Author: [Mark Croxton](http://hallmark-design.co.uk/)
 
-## Version 2.0.0
+## Version 2.0.1
 
 * Requires: ExpressionEngine 2
 
 ## Description
 
-Search channel entry titles, entry custom fields, category names, category descriptions and category custom fields.
+Search channel entry titles, entry custom fields, category names, category descriptions, category custom fields and [Tagger](http://devot-ee.com/add-ons/tagger/) tags.
 
 ## Installation
 
@@ -18,6 +18,7 @@ Search channel entry titles, entry custom fields, category names, category descr
 
 ### search:[field]=  (optional)
 Field can be title, cat_name, cat_description, [custom_field_name], cat_[custom_field_name].
+Tagger module tags assigned to an entry can be also be searched in the form: [tagger_custom_field_name]="tagger=[tag]"
 		
 Search parameter syntax is identical to the [channel search parameter](http://expressionengine.com/docs/modules/channel/parameters.html#par_search).
 
@@ -86,6 +87,7 @@ The search_results template could look like:
 	{exp:search_fields 
 		search:title="{embed:search}" 
 		search:cat_name="{embed:search}" 
+		search:tags="tagger={embed:search}"
 		operator="OR" 
 		channel="my_channel" 
 		parse="inward"}
