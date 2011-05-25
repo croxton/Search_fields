@@ -2,7 +2,7 @@
 
 $plugin_info = array(
   'pi_name' => 'Search Fields',
-  'pi_version' =>'2.0.1',
+  'pi_version' =>'2.0.2',
   'pi_author' =>'Mark Croxton',
   'pi_author_url' => 'http://www.hallmark-design.co.uk/',
   'pi_description' => 'Search channel entry titles, custom fields, category names, category descriptions and category custom fields.',
@@ -16,7 +16,7 @@ $plugin_info = array(
  * channel entries and categories for keywords/phrase.
  * Outputs a delimited list of entry ids to a placeholder
  *
- * @version 2.0.0
+ * @version 2.0.2
  *
  */
 class Search_fields {
@@ -266,7 +266,7 @@ class Search_fields {
 		// limit to a channel?
 		if ($channel !== '*')
         {
-            if(substr('|', $channel))
+            if(strpos($channel, '|') !== FALSE)
             {
                 $channels = explode('|', $channel);
                 $sql_conditions = "(".$sql_conditions.") AND (";
