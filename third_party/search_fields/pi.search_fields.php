@@ -404,7 +404,7 @@ class Search_fields {
         
 		if ($query->num_rows > 0)
         {        
-        	foreach ($query->result as $row)
+        	foreach ($query->result_array() as $row)
 	        {
 				// assign standard fields
 	            $this->_cat_fields[$row['site_id']][$row['field_name']] = $row['field_id'];
