@@ -242,8 +242,13 @@ class Search_fields {
 							}
 							else
 							{
-								$term = $this->_sanitize_search_terms($term);
-								$sql_conditions .= ' '.$field_sql.' '.$like.' "%'.$this->EE->db->escape_like_str($term).'%" '.$andor;								
+							  // starts with, ends with, or contains
+							  $l_wildcard = substr($term, 0, 2) == '\^' ? '' : '%';
+							  $r_wildcard = substr($term, -2, 2) == '\$' ? '' : '%';
+                $term = str_replace(array('\^', '\$'), '', $term);
+                
+                $term = $this->_sanitize_search_terms($term);
+								$sql_conditions .= ' '.$field_sql.' '.$like.' "' .$l_wildcard.$this->EE->db->escape_like_str($term).$r_wildcard.'" '.$andor;                
 							}
 						}
 						$sql_conditions = substr($sql_conditions, 0, -strlen($andor)).') ';
