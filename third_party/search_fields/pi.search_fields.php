@@ -2,7 +2,7 @@
 
 $plugin_info = array(
   'pi_name' => 'Search Fields',
-  'pi_version' =>'2.0.2',
+  'pi_version' =>'2.0.3',
   'pi_author' =>'Mark Croxton',
   'pi_author_url' => 'http://www.hallmark-design.co.uk/',
   'pi_description' => 'Search channel entry titles, custom fields, category names, category descriptions and category custom fields.',
@@ -16,7 +16,7 @@ $plugin_info = array(
  * channel entries and categories for keywords/phrase.
  * Outputs a delimited list of entry ids to a placeholder
  *
- * @version 2.0.2
+ * @version 2.0.3
  *
  */
 class Search_fields {
@@ -368,7 +368,7 @@ class Search_fields {
           
       	if ($query->num_rows > 0)
         {
-        	foreach ($query->result as $row)
+        	foreach ($query->result_array() as $row)
 	        {
 	        	// assign standard custom fields
 	            $this->_custom_fields[$row['site_id']][$row['field_name']] = $row['field_id'];
@@ -533,7 +533,7 @@ class Search_fields {
 		
 		min_length			= 	(optional) The minimum length for the search term. Default is 3.
 
-		dynamic_parameters	=	(optional) Allow specific search parameters to set via $_POST (form fields should have same name as the fields you wish to search). E.g. "title|custom_field". 
+		dynamic_parameters	=	(optional) Allow specific search parameters to set via $_POST. E.g. "title|custom_field". Note: your form fields should have the same name as the fields you wish to search, but prefixed with 'search:'. E.g. <input type="text" name="search:title">
 
 		This plugin is best used as a tag pair wrapping {exp:channel:entries}. 
 
