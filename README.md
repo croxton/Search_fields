@@ -2,7 +2,7 @@
 
 * Author: [Mark Croxton](http://hallmark-design.co.uk/)
 
-## Version 2.0.2
+## Version 2.0.3
 
 * Requires: ExpressionEngine 2
 
@@ -62,6 +62,8 @@ Default is 3.
 
 Allow specific search parameters to set via $_POST (form fields should have same name as the fields you wish to search).
 E.g. "title|custom_field". 
+
+Note: your form fields should have the same name as the fields you wish to search, but prefixed with 'search:'  e.g. <input type="text" name="search:title">
 
 ## Sample use
 This plugin is best used as a tag pair wrapping {exp:channel:entries}, e.g.: 
