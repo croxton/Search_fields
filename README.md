@@ -60,7 +60,7 @@ Default is 3.
 
 ### dynamic_parameters= (optional) 
 
-Allow specific search parameters to set via $_POST (form fields should have same name as the fields you wish to search).
+Allow specific search parameters to set via $_POST.
 E.g. "title|custom_field". 
 
 Note: your form fields should have the same name as the fields you wish to search, but prefixed with 'search:'. E.g.:
