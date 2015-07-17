@@ -46,6 +46,7 @@ class Search_fields {
 		$delimiter 	= $this->EE->TMPL->fetch_param('delimiter', '|');
 		$operator 	= strtoupper($this->EE->TMPL->fetch_param('operator')) == 'OR' ? 'OR' : 'AND';
 		$ph 		= $this->EE->TMPL->fetch_param('placeholder', 'search_results');
+		$required = $this->EE->TMPL->fetch_param('required', 'yes') == 'yes' ? 'yes' : 'no';
 		$site 		= $this->EE->TMPL->fetch_param('site', $this->EE->config->item('site_id'));
 		$this->min_length = $this->EE->TMPL->fetch_param('min_length', $this->min_length);
 		
@@ -255,8 +256,15 @@ class Search_fields {
 		// check that we actually have some conditions to match
 		if ($sql_conditions == '')
 		{
-			// no valid fields to search	
-			$this->return_data = $this->EE->TMPL->no_results();
+			// no valid fields to search
+			if($required == 'yes')
+			{
+				$this->return_data = $this->EE->TMPL->no_results();
+			}
+			else
+			{
+				$this->return_data = $this->EE->TMPL->parse_variables_row($tagdata, array($ph => ''));
+			}
 			return; // end the process here
 		}
 		
@@ -335,7 +343,7 @@ class Search_fields {
 				$found_ids .= ($found_ids=='' ? '' : $delimiter).$row['entry_id'];
 			}
 
-			$tagdata = $this->EE->TMPL->swap_var_single($ph, $found_ids, $tagdata);
+			$tagdata = $this->EE->TMPL->parse_variables_row($tagdata, array($ph => $found_ids));
 		
 			// return data
 			$this->return_data = $tagdata;
