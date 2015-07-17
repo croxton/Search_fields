@@ -48,6 +48,11 @@ Default is pipe |.
 Single variable placeholder to replace with search results output. 
 Default is search_results (use as {search_results}).
 
+### required= (optional)	
+
+'y' or 'n'.  Sets whether or not a search is required.  If required and no search parameters are present, no_results will be set to true.  If not required and no search parameters are present, the placeholder variable will be set to a blank string so that additional channel entries loop parameters will be processed.
+Default is 'y'.
+
 ### site= (optional)	
 
 The site id.
