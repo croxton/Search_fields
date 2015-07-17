@@ -256,7 +256,7 @@ class Search_fields {
 		if ($sql_conditions == '')
 		{
 			// no valid fields to search	
-			$this->return_data = $this->EE->TMPL->no_results();
+			$this->return_data = $this->EE->TMPL->parse_variables_row($tagdata, array($ph => ''));
 			return; // end the process here
 		}
 		
@@ -335,7 +335,7 @@ class Search_fields {
 				$found_ids .= ($found_ids=='' ? '' : $delimiter).$row['entry_id'];
 			}
 
-			$tagdata = $this->EE->TMPL->swap_var_single($ph, $found_ids, $tagdata);
+			$tagdata = $this->EE->TMPL->parse_variables_row($tagdata, array($ph => $found_ids));
 		
 			// return data
 			$this->return_data = $tagdata;
