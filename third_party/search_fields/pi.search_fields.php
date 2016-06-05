@@ -130,6 +130,13 @@ class Search_fields {
 					$search_cat = true;
 				}
 				
+				// search category ID 
+				else if ($field_name =="cat_id") 
+				{
+					$field_sql = 'ct.cat_id';
+					$search_cat = true;
+				}
+				
 				// search category description 
 				else if ($field_name =="cat_description") 
 				{
